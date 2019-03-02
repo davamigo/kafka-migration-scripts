@@ -1,0 +1,15 @@
+{
+  "namespace": "com.example",
+  "type": "record",
+  "name": "Customer",
+  "fields": [
+    {
+      "name": "uuid",
+      "type": "string"
+    },
+    {
+      "name": "full_name",
+      "type": "string"
+    }
+  ]
+}

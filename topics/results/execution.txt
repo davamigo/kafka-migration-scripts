@@ -1,0 +1,49 @@
+$ docker run --rm -d -p 9092:9092 -p 2181:2181 -e KAFKA_ADVERTISED_HOST_NAME=localhost -v $PWD:/opt/kafka/scripts --name docker_kafka_dev blacktop/kafka
+28042f0f0603c4c2d71d5f6475d7a9ccdb96992f8e3d1f304fcac24f47c35e30
+
+$ docker exec -it docker_kafka_dev bash
+
+bash-4.4# scripts/create-topics.sh --environment dev --zookeeper localhost:2181 --replication-factor 1 --topics-file topics.csv
+
+>>> Creating topic: test-dev.importer.contacts...
+
+$ kafka-topics.sh --create --topic test-dev.importer.contacts --partitions 7 --replication-factor 1 --zookeeper localhost:2181 --config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+
+WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
+Created topic "test-dev.importer.contacts".
+
+>>> Creating topic: test-dev.importer.campaigns...
+
+$ kafka-topics.sh --create --topic test-dev.importer.campaigns --partitions 7 --replication-factor 1 --zookeeper localhost:2181 --config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+
+WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
+Created topic "test-dev.importer.campaigns".
+
+>>> Creating topic: test-dev.importer.events...
+
+$ kafka-topics.sh --create --topic test-dev.importer.events --partitions 7 --replication-factor 1 --zookeeper localhost:2181 --config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+
+WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
+Created topic "test-dev.importer.events".
+
+>>> Creating topic: test-dev.importer.forecast...
+
+$ kafka-topics.sh --create --topic test-dev.importer.forecast --partitions 7 --replication-factor 1 --zookeeper localhost:2181 --config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+
+WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
+Created topic "test-dev.importer.forecast".
+
+>>> Creating topic: test-dev.consolidator.sourcing...
+
+$ kafka-topics.sh --create --topic test-dev.consolidator.sourcing --partitions 3 --replication-factor 1 --zookeeper localhost:2181
+
+WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
+Created topic "test-dev.consolidator.sourcing".
+
+>>> Creating topic: test-dev.consolidator.demand...
+
+$ kafka-topics.sh --create --topic test-dev.consolidator.demand --partitions 7 --replication-factor 1 --zookeeper localhost:2181
+
+WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
+Created topic "test-dev.consolidator.demand".
+

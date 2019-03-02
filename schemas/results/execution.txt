@@ -1,0 +1,71 @@
+$  docker run --rm -d -p 2181:2181 -p 3030:3030 -p 8081:8081 -p 8082:8082 -p 8083:8083 -p 9092:9092 -e ADV_HOST=127.0.0.1 -e RUNTESTS=0 -e SAMPLEDATA=0 -e FORWARDLOGS=0 -v /Users/david.amigo/java/experiments/topics-scripts/schemas/docker/../scripts:/scripts --name docker_kafka_dev landoop/fast-data-dev:2.0
+40f259dddf21ba3825055069ef3b1b51cb00ff3e2fe37bcd59183862e22064cb
+
+$ docker exec -it docker_kafka_dev bash
+
+root@fast-data-dev / $ cd scripts/
+root@fast-data-dev scripts $ ./register-schema.sh -s customer-value -f curstomer.v1.avsc
+
+$ curl -X PUT -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"compatibility": "FULL"}' http://localhost:8081/config/customer-value
+
+{"compatibility":"FULL"}
+
+$ curl -X POST -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"schema": "{\"namespace\": \"com.example\",\"type\": \"record\",\"name\": \"Customer\",\"fields\": [{\"name\": \"uuid\",\"type\": \"string\"},{\"name\": \"first_name\",\"type\": \"string\"},{\"name\": \"last_name\",\"type\": \"string\"}]}"}' http://localhost:8081/subjects/customer-value/versions
+
+{"id":1}
+
+
+root@fast-data-dev scripts $ ./register-schema.sh -s customer-value -f curstomer.v2.avsc
+
+$ curl -X PUT -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"compatibility": "FULL"}' http://localhost:8081/config/customer-value
+
+{"compatibility":"FULL"}
+
+$ curl -X POST -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"schema": "{\"namespace\": \"com.example\",\"type\": \"record\",\"name\": \"Customer\",\"fields\": [{\"name\": \"uuid\",\"type\": \"string\"},{\"name\": \"first_name\",\"type\": \"string\"},{\"name\": \"last_name\",\"type\": \"string\"},{\"name\": \"age\",\"type\": [ \"null\", \"int\" ],\"default\": null}]}"}' http://localhost:8081/subjects/customer-value/versions
+
+{"id":2}
+
+
+root@fast-data-dev scripts $ ./register-schema.sh -s customer-value -f curstomer.v3.avsc
+
+$ curl -X PUT -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"compatibility": "FULL"}' http://localhost:8081/config/customer-value
+
+{"compatibility":"FULL"}
+
+$ curl -X POST -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"schema": "{\"namespace\": \"com.example\",\"type\": \"record\",\"name\": \"Customer\",\"fields\": [{\"name\": \"uuid\",\"type\": \"string\"},{\"name\": \"first_name\",\"type\": \"string\"},{\"name\": \"last_name\",\"type\": \"string\"},{\"name\": \"age\",\"type\": [ \"null\", \"int\" ],\"default\": null},{\"name\": \"phone\",\"type\": [ \"null\", \"string\" ],\"default\": null},{\"name\": \"email\",\"type\": [ \"null\", \"string\" ],\"default\": null}]}"}' http://localhost:8081/subjects/customer-value/versions
+
+{"id":3}
+
+
+root@fast-data-dev scripts $ ./register-schema.sh -s customer-value -f curstomer.v4.avsc
+
+$ curl -X PUT -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"compatibility": "FULL"}' http://localhost:8081/config/customer-value
+
+{"compatibility":"FULL"}
+
+$ curl -X POST -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"schema": "{\"namespace\": \"com.example\",\"type\": \"record\",\"name\": \"Customer\",\"fields\": [{\"name\": \"uuid\",\"type\": \"string\"},{\"name\": \"first_name\",\"type\": \"string\"},{\"name\": \"last_name\",\"type\": \"string\"},{\"name\": \"phone\",\"type\": [ \"null\", \"string\" ],\"default\": null},{\"name\": \"email\",\"type\": [ \"null\", \"string\" ],\"default\": null}]}"}' http://localhost:8081/subjects/customer-value/versions
+
+{"id":4}
+
+
+root@fast-data-dev scripts $ ./register-schema.sh -s customer-value -f curstomer.v2.avsc
+
+$ curl -X PUT -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"compatibility": "FULL"}' http://localhost:8081/config/customer-value
+
+{"compatibility":"FULL"}
+
+$ curl -X POST -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"schema": "{\"namespace\": \"com.example\",\"type\": \"record\",\"name\": \"Customer\",\"fields\": [{\"name\": \"uuid\",\"type\": \"string\"},{\"name\": \"first_name\",\"type\": \"string\"},{\"name\": \"last_name\",\"type\": \"string\"},{\"name\": \"age\",\"type\": [ \"null\", \"int\" ],\"default\": null}]}"}' http://localhost:8081/subjects/customer-value/versions
+
+{"id":2}
+
+
+root@fast-data-dev scripts $ ./register-schema.sh -s customer-value -f curstomer.no-comp.avsc
+
+$ curl -X PUT -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"compatibility": "FULL"}' http://localhost:8081/config/customer-value
+
+{"compatibility":"FULL"}
+
+$ curl -X POST -H 'Content-Type: application/vnd.schemaregistry.v1+json' --data '{"schema": "{\"namespace\": \"com.example\",\"type\": \"record\",\"name\": \"Customer\",\"fields\": [{\"name\": \"uuid\",\"type\": \"string\"},{\"name\": \"full_name\",\"type\": \"string\"}]}"}' http://localhost:8081/subjects/customer-value/versions
+
+{"error_code":409,"message":"Schema being registered is incompatible with an earlier schema"}
+

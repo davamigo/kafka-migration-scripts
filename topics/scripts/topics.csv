@@ -1,0 +1,6 @@
+test-___ENV___.importer.contacts;7;--config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+test-___ENV___.importer.campaigns;7;--config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+test-___ENV___.importer.events;7;--config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+test-___ENV___.importer.forecast;7;--config cleanup.policy=delete --config retention.bytes=-1 --config retention.ms=2592000000
+test-___ENV___.consolidator.sourcing;3;
+test-___ENV___.consolidator.demand

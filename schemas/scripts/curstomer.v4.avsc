@@ -1,0 +1,29 @@
+{
+  "namespace": "com.example",
+  "type": "record",
+  "name": "Customer",
+  "fields": [
+    {
+      "name": "uuid",
+      "type": "string"
+    },
+    {
+      "name": "first_name",
+      "type": "string"
+    },
+    {
+      "name": "last_name",
+      "type": "string"
+    },
+    {
+        "name": "phone",
+        "type": [ "null", "string" ],
+        "default": null
+    },
+    {
+    "name": "email",
+    "type": [ "null", "string" ],
+    "default": null
+    }
+  ]
+}
