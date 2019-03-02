@@ -42,11 +42,11 @@ Example of AVSC file with the same schema, but breaking the compatibility.
 
 For testing the script.
 
-###`docker/startKafka.sh`
+### `docker/startKafka.sh`
 
 Starts a **`landoop/fast-data-dev`** docker container (Kafka + Zookeeper + Schema Registry + REST Proxy).
 
-###`docker/stopKafka.sh`
+### `docker/stopKafka.sh`
 
 Stops the **`landoop/fast-data-dev`** docker container.
 

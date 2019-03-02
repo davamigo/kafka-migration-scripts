@@ -38,11 +38,11 @@ Example of CSV file for creating the topics.
 
 ## Docker support
 
-###`docker/startKafka.sh`
+### `docker/startKafka.sh`
 
 Starts a **`blacktop/kafka`** docker container (Kafka + Zookeeper).
 
-###`docker/stopKafka.sh`
+### `docker/stopKafka.sh`
 
 Stops the **`blacktop/kafka`** docker container.
 
